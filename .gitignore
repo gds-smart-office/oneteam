@@ -1,5 +1,2 @@
 # Ignore RubyMine internal files
 .idea/*
-
-# Ignore application configuration
-/config/application.yml
