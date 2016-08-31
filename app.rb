@@ -1,3 +1,4 @@
+require_relative 'config'
 require 'rubygems'
 require 'json'
 require 'rest-client'
@@ -5,12 +6,11 @@ require 'pi_piper'
 
 include PiPiper
 
-plan = 'TR-ARRP'
-url = "http://www.ida-gds.com/bamboo/rest/api/latest/result/#{plan}.json?expand=results[0].result&expand=results.result.jiraIssues"
 successful_pin = PiPiper::Pin.new(:pin => 17, :direction => :out)
 failed_pin     = PiPiper::Pin.new(:pin => 18, :direction => :out)
+
 while true
-  json = JSON.parse(RestClient::Request.execute method: :get, url: url, user: ENV['BAMBOO_USER'], password: ENV['BAMBOO_PASSWORD'])
+  json = JSON.parse(RestClient::Request.execute method: :get, url: URL, user: USERNAME, password: PASSWORD)
   status = json['results']['result'][0]['state']
   if status == 'successful'
     puts "#{Time.now}: Successful!"
